@@ -5,7 +5,7 @@ package FFSSM;
 
 import java.time.LocalDate;
 
-public class Licence {
+public class Licence implements Comparable<Licence> {
 
     public Personne possesseur;
 
@@ -26,6 +26,8 @@ public class Licence {
         return possesseur;
     }
 
+    
+
     public String getNumero() {
         return numero;
     }
@@ -39,14 +41,25 @@ public class Licence {
     }
 
     /**
-     * Est-ce que la licence est valide à la date indiquée ?
-     * Une licence est valide pendant un an à compter de sa date de délivrance
+     * Est-ce que la licence est valide à la date indiquée ? Une licence est
+     * valide pendant un an à compter de sa date de délivrance
+     *
      * @param d la date à tester
      * @return vrai si valide à la date d
-     **/
+     *
+     */
     public boolean estValide(LocalDate d) {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        return !this.getDelivrance().plusYears(1).isAfter(d); // la date de délivrance +1 an est dépassée → false
+    }
+
+    
+    public int compareTo(Licence licence) {
+       if (this.getDelivrance().isAfter(licence.getDelivrance())) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
 }
+
